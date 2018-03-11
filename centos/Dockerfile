@@ -10,6 +10,7 @@ WORKDIR $GOPATH
 RUN yum install -y \
   wget \
   rpm-build \
+  git \
   docker
 
 ENV GOLANG_VERSION 1.10
