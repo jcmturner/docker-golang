@@ -17,4 +17,5 @@ RUN GOTAR=$(getgo -path=/tmp | grep "Downloading to:" | sed 's/Downloading to: /
 RUN yum install -y \
   wget \
   rpm-build \
-  git
+  git \
+  && yum upgrade -y && yum clean all
