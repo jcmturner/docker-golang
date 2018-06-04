@@ -9,7 +9,7 @@ ENV GOARCH amd64
 
 RUN for d in src pkg bin; do mkdir -p ${GOPATH}/$d; done; chmod -R 777 "$GOPATH"
 WORKDIR $GOPATH
-ADD ../getgo $GOPATH/bin/getgo
+ADD getgo $GOPATH/bin/getgo
 RUN GOTAR=$(getgo -path=/tmp | grep "Downloading to:" | sed 's/Downloading to: //') && \
   tar -C ${GOBASE} -xzf ${GOTAR} && \
   rm -f ${GOTAR}
