@@ -1,6 +1,8 @@
 version: 0.2
 
 env:
+  variables:
+    DISTRO: "centos"
   parameter-store:
     DOCKERHUBUSER: "dockerhubuser"
     DOCKERHUBPASSWD: "dockerhub"
@@ -10,10 +12,11 @@ phases:
     commands:
       - echo Building container image...
       - VERSION=$(getgo -info -arch=amd64 -os=linux | grep "Version:" | awk '{print $2}' | sed 's/go//')
-      - docker build -t jcmturner/golang:${VERSION} ./centos
-      - docker tag jcmturner/golang:${VERSION} jcmturner/golang:latest
+      - docker build -t jcmturner/golang:${DISTRO}-${VERSION} ./centos
+      - docker tag jcmturner/golang:${DISTRO}-${VERSION} jcmturner/golang:${DISTRO}-latest
   post_build:
     commands:
       - echo Pushing container image...
       - docker login -u ${DOCKERHUBUSER} -p ${DOCKERHUBPASSWD}
-      - docker push jcmturner/golang:latest
+      - docker push jcmturner/golang:${DISTRO}-latest
+      - docker push jcmturner/golang:${DISTRO}-${VERSION}
