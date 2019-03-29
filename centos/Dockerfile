@@ -18,4 +18,5 @@ RUN yum install -y \
   wget \
   rpm-build \
   git \
+  gcc \
   && yum upgrade -y && yum clean all
